@@ -46,7 +46,7 @@ while running:
                 utils.open_state()
 
         # moving the draughts
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and board.turn == 1:
             x, y = event.pos
             row = int(y / 75)
             col = int(x / 75)
@@ -73,6 +73,21 @@ while running:
                         board.chosen = cell
                         steps = moving.find_steps(board, cell)
                         utils.mark_cells(steps)
+
+    if board.turn == 2:
+        k = list(board.cells.keys())
+        random.shuffle(k)
+        for key in k:
+            cell = board.cells[key]
+            if cell.color != 2:
+                continue
+            steps = moving.find_steps(board, cell)
+            if (steps is not None) and (len(steps) > 0):
+                s = steps[random.randint(0, len(steps) - 1)]
+                board.chosen = cell
+                cell.border = 1
+                moving.do_move(board, cell, s)
+                break
 
     # setting up bg
     screen.blit(bg, (0, 0))
