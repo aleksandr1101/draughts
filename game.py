@@ -47,32 +47,7 @@ while running:
 
         # moving the draughts
         if event.type == pygame.MOUSEBUTTONDOWN and board.turn == 1:
-            x, y = event.pos
-            row = int(y / 75)
-            col = int(x / 75)
-            if ((row + col) % 2 == 0) or (board.cells[(row, col)] is board.chosen):
-                # Canceling the selection
-                board.chosen = None
-                board.clear_borders()
-            else:
-                # pressed cell
-                cell = board.cells[(row, col)]
-                if cell.border == 2:
-                    # if we choose the move
-                    moving.do_move(board, board.chosen, cell)
-                elif cell.border == 0:
-                    # if we re-choose the cell
-                    board.clear_borders()
-                    if cell.color != board.turn:
-                        # wrong color
-                        board.chosen = None
-                        continue
-                    else:
-                        # find possible moves
-                        cell.border = 1
-                        board.chosen = cell
-                        steps = moving.find_steps(board, cell)
-                        utils.mark_cells(steps)
+            utils.go_move(event, board)
 
     if board.turn == 2:
         k = list(board.cells.keys())

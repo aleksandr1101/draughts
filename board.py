@@ -12,19 +12,25 @@ class Board:
         # diagonals
         self.diagonals = list()
         d = self.diagonals
-        d.append([(7, 0), (6, 1), (5, 2), (4, 3), (3, 4), (2, 5), (1, 6), (0, 7)])
-        d.append([(7, 6), (6, 5), (5, 4), (4, 3), (3, 2), (2, 1), (1, 0)])
-        d.append([(6, 7), (5, 6), (4, 5), (3, 4), (2, 3), (1, 2), (0, 1)])
-        d.append([(7, 2), (6, 3), (5, 4), (4, 5), (3, 6), (2, 7)])
-        d.append([(5, 0), (4, 1), (3, 2), (2, 3), (1, 4), (0, 5)])
-        d.append([(7, 4), (6, 3), (5, 2), (4, 1), (3, 0)])
-        d.append([(4, 7), (3, 6), (2, 5), (1, 4), (0, 3)])
-        d.append([(3, 0), (2, 1), (1, 2), (0, 3)])
-        d.append([(7, 4), (6, 5), (5, 6), (4, 7)])
-        d.append([(7, 2), (6, 1), (5, 0)])
-        d.append([(2, 7), (1, 6), (0, 5)])
-        d.append([(7, 6), (6, 7)])
-        d.append([(1, 0), (0, 1)])
+        for i in range(7):
+            if i % 2 == 0:
+                lst1 = list()
+                lst2 = list()
+                for j in range(8 - i):
+                    lst1.append((7 - j, j + i))
+                    lst2.append((7 - j - i, j))
+                d.append(lst1)
+                if i != 0:
+                    d.append(lst2)
+            else:
+                lst1 = list()
+                lst2 = list()
+                for j in range(8 - i):
+                    lst1.append((7 - j, 7 - j - i))
+                    lst2.append((7 - j - i, 7 - j))
+                d.append(lst1)
+                d.append(lst2)
+
         # init cells
         self.cells = dict()
         for i in range(8):
